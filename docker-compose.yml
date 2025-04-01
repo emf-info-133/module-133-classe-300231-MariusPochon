@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  module133classe300231mariuspochon:
+    image: module133classe300231mariuspochon
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 8080:8080
