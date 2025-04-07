@@ -23,6 +23,4 @@ public class Auteurs {
 
     private String nationality;
 
-    @OneToMany(mappedBy = "auteur", cascade = CascadeType.ALL)
-    private List<Livres> livres;
 }

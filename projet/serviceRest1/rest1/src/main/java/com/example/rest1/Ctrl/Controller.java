@@ -1,10 +1,12 @@
 package com.example.rest1.Ctrl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,9 +30,20 @@ public class Controller {
     private AuteursRepository auteursRepository;
 
     // Handler pour GET
-    @GetMapping("/getRest1")
-    public String getExample(@RequestParam(value = "name", defaultValue = "rest1") String name) {
-        return String.format("Hello, %s!", name);
+    @GetMapping("/getLivres")
+    public ResponseEntity<List<Livres>> getLivres() {
+        List<Livres> livres = livresRepository.findAll();
+        return ResponseEntity.ok(livres);
+    }
+
+    @GetMapping("/getLivre")
+    public ResponseEntity<Livres> getLivre(@RequestParam Integer id) {
+        Optional<Livres> livre = livresRepository.findById(id);
+        if (livre.isPresent()) {
+            return ResponseEntity.ok(livre.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
     // Handler pour POST Livre
