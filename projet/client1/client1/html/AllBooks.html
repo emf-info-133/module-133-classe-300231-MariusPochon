@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>All Books</title>
   <script src="../scripts/AllBook.js" defer></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script> <!-- Icônes modernes -->
   <link
   href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
   rel="stylesheet"
@@ -12,7 +14,8 @@
 <link
   href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss-animated/1.0.1/tailwindcss-animated.min.css"
   rel="stylesheet"
-/></head>
+/>
+</head>
 <body class="bg-gray-100 font-sans leading-relaxed tracking-wide">
   <header class="bg-indigo-600 text-white py-6 text-center">
     <h1 class="text-4xl font-bold">Liste des Livres</h1>
@@ -21,7 +24,7 @@
   <main class="container mx-auto p-6">
     <div class="bg-white shadow-lg rounded-lg p-6">
       <ul id="bookList" class="space-y-4">
-        <!-- La liste des livres sera générée ici par le JavaScript -->
+        <!-- Liste des livres générée dynamiquement -->
       </ul>
     </div>
   </main>

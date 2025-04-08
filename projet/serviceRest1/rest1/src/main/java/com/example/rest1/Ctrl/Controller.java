@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -92,17 +93,13 @@ public class Controller {
         return ResponseEntity.ok("Auteur ajouté avec succès : " + name);
     }
 
-    @PostMapping("/deleteLivre")
-    public ResponseEntity<String> deleteLivre(@RequestParam Integer id) {
-        Optional<Livres> livre = livresRepository.findById(id);
-
-        if (livre.isPresent()) {
-            livresRepository.delete(livre.get());
-            return ResponseEntity.ok("Livre avec ID " + id + " a été supprimé.");
+    @DeleteMapping("/deleteLivre/{id}")
+    public ResponseEntity<String> deleteLivre(@PathVariable Integer id) {
+        if (livresRepository.existsById(id)) {
+            livresRepository.deleteById(id);
+            return ResponseEntity.ok("Livre supprimé avec succès");
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Livre avec ID " + id + " non trouvé.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Livre non trouvé");
         }
-    }
-
+    }    
 }
