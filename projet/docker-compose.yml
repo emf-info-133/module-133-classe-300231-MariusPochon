@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # API Gateway
   api-gateway:
@@ -11,7 +9,7 @@ services:
       - library-network
 
   # Service REST 1 (avec DB1)
-  serviceRest1:
+  servicerest1:
     build: ./serviceRest1/rest1
     ports:
       - "8081:8080"
@@ -27,7 +25,7 @@ services:
       - SPRING_DATASOURCE_PASSWORD=emf123
 
   # Service REST 2 (avec DB2)
-  serviceRest2:
+  servicerest2:
     build: ./serviceRest2/rest2
     ports:
       - "8082:8080"
