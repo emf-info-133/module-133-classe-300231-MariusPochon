@@ -3,7 +3,7 @@ version: '3.8'
 services:
   # API Gateway
   api-gateway:
-    build: ./apiGateway/marque-paf/Dockerfile
+    build: ./apiGateway/marque-paf
     ports:
       - "8080:8080"
     restart: always
@@ -15,74 +15,66 @@ services:
     build: ./serviceRest1/rest1
     ports:
       - "8081:8080"
-    restart: always  
+    restart: always 
+    depends_on:
+      - db1 
     networks:
       - library-network
     environment:
       - JAVA_OPTS=-Dspring.profiles.active=docker
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db1:3306/library
+      - SPRING_DATASOURCE_URL=jdbc:mysql://host.docker.internal:3308/library
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=emf123
-    depends_on:
-      - db1
 
   # Service REST 2 (avec DB2)
   serviceRest2:
-    build:
-      context: .
-      dockerfile: serviceRest2/rest2/Dockerfile
+    build: ./serviceRest2/rest2
     ports:
-      - "8082:8082"
-    environment:
-      - JAVA_OPTS=-Dspring.profiles.active=docker
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db2:3306/user
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=emf123
+      - "8082:8080"
+    restart: always
     depends_on:
       - db2
     networks:
       - library-network
+    environment:
+      - JAVA_OPTS=-Dspring.profiles.active=docker
+      - SPRING_DATASOURCE_URL=jdbc:mysql://host.docker.internal:3307/user
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=emf123
 
   # Base de données 1 (pour REST1)
   db1:
     image: mysql:8.0
-    ports:
-      - "3307:3306"
-    environment:
-      - MYSQL_ROOT_PASSWORD=emf123
-      - MYSQL_DATABASE=library
-    volumes:
-      - db1-data:/var/lib/mysql
-    networks:
-      - library-network
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 5s
-      timeout: 10s
-      retries: 10
-
-  # Base de données 2 (pour REST2)
-  db2:
-    image: mysql:8.0
+    restart: always
     ports:
       - "3308:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=emf123
-      - MYSQL_DATABASE=user
+      - MYSQL_DATABASE=library
     volumes:
-      - db2-data:/var/lib/mysql
+      - db1-data:/opt/mysql
     networks:
       - library-network
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 5s
-      timeout: 10s
-      retries: 10
 
-volumes:
-  db1-data:
-  db2-data:
+  # Base de données 2 (pour REST2)
+  db2:
+    image: mysql:8.0
+    restart: always
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=emf123
+      - MYSQL_DATABASE=user
+    volumes:
+      - db2-data:/opt/mysql
+    networks:
+      - library-network
 
 networks:
   library-network:
     driver: bridge
+    name: library-network
+
+volumes:
+  db1-data:
+  db2-data:
