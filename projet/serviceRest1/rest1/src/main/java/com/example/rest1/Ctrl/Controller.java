@@ -101,5 +101,17 @@ public class Controller {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Livre non trouvé");
         }
-    }    
+    }
+
+    @GetMapping("/getAuteur")
+    public ResponseEntity<List<Auteurs>> getAllAuteurs() {
+        List<Auteurs> auteurs = auteursRepository.findAll();
+        return ResponseEntity.ok(auteurs);
+    }
+
+    @GetMapping("/getAuteurs")
+    public List<Auteurs> getAuteurs() {
+        return auteursRepository.findAll();
+    }
+
 }

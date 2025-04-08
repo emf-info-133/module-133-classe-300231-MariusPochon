@@ -1,36 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>All Books</title>
-  <script src="../scripts/AllBook.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Liste des Livres</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../scripts/AllBook.js" defer></script>
   <script src="https://unpkg.com/lucide@latest"></script> <!-- Icônes modernes -->
-  <link
-  href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-  rel="stylesheet"
-/>
-<link
-  href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss-animated/1.0.1/tailwindcss-animated.min.css"
-  rel="stylesheet"
-/>
+
 </head>
-<body class="bg-gray-100 font-sans leading-relaxed tracking-wide">
-  <header class="bg-indigo-600 text-white py-6 text-center">
-    <h1 class="text-4xl font-bold">Liste des Livres</h1>
-  </header>
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen flex flex-col items-center justify-start py-10 px-4">
+  <div class="w-full max-w-3xl bg-white shadow-lg rounded-xl p-6">
+    <h1 class="text-3xl font-bold text-center text-indigo-600 mb-6">Liste des Livres</h1>
+    
+    <ul id="bookList" class="space-y-4">
+      <!-- Liste des livres sera remplie ici par le JS -->
+    </ul>
 
-  <main class="container mx-auto p-6">
-    <div class="bg-white shadow-lg rounded-lg p-6">
-      <ul id="bookList" class="space-y-4">
-        <!-- Liste des livres générée dynamiquement -->
-      </ul>
+    <div class="flex justify-center mt-6">
+      <a href="addBook.html" class="bg-indigo-600 text-white py-2 px-4 rounded-full hover:bg-indigo-700">Ajouter un Livre</a>
     </div>
-  </main>
-
-  <footer class="bg-indigo-600 text-white py-4 text-center">
-    <p>&copy; 2025 BookApp - Tous droits réservés</p>
-  </footer>
+  </div>
 </body>
 </html>
