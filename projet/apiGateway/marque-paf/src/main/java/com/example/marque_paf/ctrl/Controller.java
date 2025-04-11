@@ -1,6 +1,7 @@
 package com.example.marque_paf.ctrl;
 
 import com.example.marque_paf.beans.User;
+import com.example.marque_paf.beans.UserDTO;
 import com.example.marque_paf.config.ConfigRest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpEntity;
