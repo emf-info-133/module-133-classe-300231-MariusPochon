@@ -1,97 +1,69 @@
-const API_BASE_URL = 'http://localhost:8080/api/auth';
-const loginForm = document.getElementById('loginForm');
-const messageDiv = document.getElementById('message');
-const profileInfo = document.getElementById('profileInfo');
-const logoutBtn = document.getElementById('logoutBtn');
 
-// Gestion de la soumission du formulaire
-loginForm.addEventListener('submit', async (e) => {
+
+// Fonction pour gérer la soumission du formulaire de connexion
+document.getElementById("loginForm").addEventListener("submit", function(e) {
     e.preventDefault();
     
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    
-    try {
-        const response = await fetch(`${API_BASE_URL}/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ username, password })
-        });
-        
-        const result = await response.text();
-        
-        if (response.ok) {
-            showMessage(result, 'success');
-            await fetchUserProfile();
-        } else {
-            showMessage(result, 'error');
-        }
-    } catch (error) {
-        showMessage('Erreur de connexion au serveur', 'error');
-        console.error('Error:', error);
-    }
-});
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    const resultEl = document.getElementById("loginResult");
+    const API_BASE_URL = 'http://localhost:8080/client/login';
 
-// Récupération du profil utilisateur
-async function fetchUserProfile() {
-    try {
-        const response = await fetch(`${API_BASE_URL}/profile`, {
-            credentials: 'include' // Important pour les cookies de session
-        });
-        
-        if (response.ok) {
-            const text = await response.text();
-            // Pour un vrai projet, tu devrais retourner du JSON depuis ton backend
-            // Ici on affiche simplement la réponse textuelle
-            document.getElementById('profileId').textContent = 'ID récupéré';
-            document.getElementById('profileUsername').textContent = document.getElementById('username').value;
-            document.getElementById('profileRole').textContent = 'Rôle récupéré';
-            
-            profileInfo.style.display = 'block';
-            loginForm.style.display = 'none';
-        } else {
-            showMessage('Erreur lors de la récupération du profil', 'error');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
-
-// Gestion de la déconnexion
-if (logoutBtn) {
-    logoutBtn.addEventListener('click', async () => {
+  
+    const userCredentials = {
+      username: username,
+      password: password
+    };
+  
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", API_BASE_URL, true);
+    xhr.withCredentials = true; // Important pour les cookies de session
+    xhr.setRequestHeader("Content-Type", "application/json");
+  
+    xhr.onload = function() {
+      if (xhr.status === 200) {
         try {
-            const response = await fetch(`${API_BASE_URL}/logout`, {
-                method: 'POST',
-                credentials: 'include'
-            });
-            
-            if (response.ok) {
-                showMessage('Déconnecté avec succès', 'success');
-                profileInfo.style.display = 'none';
-                loginForm.style.display = 'flex';
-                loginForm.reset();
-            }
-        } catch (error) {
-            console.error('Error:', error);
+          const userData = JSON.parse(xhr.responseText);
+          resultEl.textContent = "Bienvenue " + userData.username;
+          
+          // Redirection basée sur le rôle
+          if (userData.role === "admin") {
+            window.location.href = "../../../client2/index.html"; // Page admin
+          } else {
+            window.location.href = "main.html"; // Page utilisateur standard
+          }
+        } catch (e) {
+          console.error("Erreur lors du traitement des données:", e);
+          resultEl.textContent = "Erreur de traitement des données";
         }
-    });
-}
-
-// Affichage des messages
-function showMessage(text, type) {
-    messageDiv.textContent = text;
-    messageDiv.className = `message ${type}`;
-    messageDiv.style.display = 'block';
-    
-    setTimeout(() => {
-        messageDiv.style.display = 'none';
-    }, 5000);
-}
-
-// Vérification de la connexion au chargement de la page
-window.addEventListener('load', async () => {
-    await fetchUserProfile();
-});
+      } else {
+        resultEl.textContent = "Erreur de connexion";
+        console.error("Erreur:", xhr.status, xhr.responseText);
+      }
+    };
+  
+    xhr.onerror = function() {
+      resultEl.textContent = "Erreur réseau";
+      console.error("Erreur réseau");
+    };
+  
+    xhr.send(JSON.stringify(userCredentials));
+  });
+  
+  // Fonction pour gérer la déconnexion
+  function logout() {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://localhost:8080/client/logout", true);
+    xhr.withCredentials = true;
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        window.location.href = "./index.html";
+      } else {
+        console.error("Erreur lors de la déconnexion:", xhr.status);
+      }
+    };
+    xhr.onerror = function() {
+      console.error("Erreur réseau lors de la déconnexion");
+    };
+    xhr.send();
+  }
