@@ -68,11 +68,22 @@ services:
     networks:
       - library-network
 
+   # Ajoute redis
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - library-network
+
 networks:
   library-network:
     driver: bridge
     name: library-network
 
+ 
+
+  # Laisse les autres services tels qu'ils sont
 volumes:
   db1-data:
   db2-data:
