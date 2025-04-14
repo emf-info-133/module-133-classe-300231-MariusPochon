@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpSession;
 public class Controller {
     private final static String URL_CLIENT = "http://projet-servicerest1-1:8080";
     private final static String URL_ADMIN = "http://projet-servicerest2-1:8080";
+
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
 
@@ -56,6 +57,7 @@ public class Controller {
 
             if (username == null) {
                 return ResponseEntity.status(401).body("{\"error\": \"Utilisateur non connecté\"}");
+
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -255,6 +257,11 @@ public class Controller {
             System.out.println("🔴 Erreur lors de l'appel à l'API Client: " + e.getMessage());
             return ResponseEntity.status(500).body("Erreur lors de l'inscription: " + e.getMessage());
         }
+    }
+
+    @GetMapping("/test")
+    public String test() {
+        return "ça marche";
     }
 }
 
