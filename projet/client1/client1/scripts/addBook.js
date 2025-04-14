@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .then(response => {
         if (response.ok) {
           alert("Livre ajouté avec succès !");
-          window.location.href = "AllBooks.html";
+          window.location.href = "../html/AllBooks.html";
         } else {
           alert("Erreur lors de l'ajout du livre.");
         }
