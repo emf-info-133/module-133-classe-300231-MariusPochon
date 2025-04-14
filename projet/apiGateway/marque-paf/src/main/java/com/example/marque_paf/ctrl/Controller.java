@@ -72,25 +72,6 @@ public class Controller {
         }
     }
 
-    @PostMapping("/admin/addCategory")
-    public ResponseEntity<String> addCategory(@RequestBody Categorie categorie, HttpSession session) {
-        // Vérifier les droits d'accès administrateur
-        ResponseEntity<String> accessCheck = checkAdminAccess(session);
-        if (accessCheck != null) {
-            return accessCheck;
-        }
-
-        String apiUrl = URL_ADMIN + "/admin/addCategory";
-        try {
-            System.out.println("🔵 Envoi de requête à " + apiUrl);
-            String response = restTemplate.postForObject(apiUrl, categorie, String.class);
-            System.out.println("🟢 Réponse reçue: " + response);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            System.err.println("🔴 Erreur lors de l'appel à l'API Admin: " + e.getMessage());
-            return ResponseEntity.status(500).body("Erreur: " + e.getMessage());
-        }
-    }
 
     @GetMapping("/admin/startQuizz/{categorieId}")
     public ResponseEntity<String> startQuizz(@PathVariable int categorieId, HttpSession session) {
@@ -108,26 +89,6 @@ public class Controller {
             String response = restTemplate.getForObject(apiUrl, String.class, categorieId);
             System.out.println("🟢 Réponse reçue: " + response);
             return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            System.err.println("🔴 Erreur lors de l'appel à l'API Admin: " + e.getMessage());
-            return ResponseEntity.status(500).body("Erreur: " + e.getMessage());
-        }
-    }
-
-    @PostMapping("/admin/addQuestion")
-    public ResponseEntity<String> addQuestion(@RequestBody Question question, HttpSession session) {
-        // Vérifier les droits d'accès administrateur
-        ResponseEntity<String> accessCheck = checkAdminAccess(session);
-        if (accessCheck != null) {
-            return accessCheck;
-        }
-
-        String apiUrl = URL_ADMIN + "/admin/addQuestion";
-        try {
-            System.out.println("🔵 Envoi de requête à " + apiUrl);
-            String response = restTemplate.postForObject(apiUrl, question, String.class);
-            System.out.println("🟢 Réponse reçue: " + response);
-            return ResponseEntity.ok("Question : " + response);
         } catch (Exception e) {
             System.err.println("🔴 Erreur lors de l'appel à l'API Admin: " + e.getMessage());
             return ResponseEntity.status(500).body("Erreur: " + e.getMessage());
