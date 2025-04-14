@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-
+@RequestMapping("/client")
 public class UserController {
     private final UserRepository userRepository;
 
@@ -56,7 +56,8 @@ public class UserController {
         return ResponseEntity.status(401).body("Identifiants incorrects");
     }
 
-    @GetMapping("/ex")
+    @GetMapping("/ex/foos")
+    
     public String getFoosBySimplePath() {
         return "Get some Foos";
     }
