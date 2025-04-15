@@ -20,7 +20,7 @@ import java.util.Map;
 @RestController
 public class GatewayController {
 
-    private static final String URL_REST1 = "http://servicerest1:8080";
+    private static final String URL_REST1 = "http://localhost:8081";
     private static final String URL_REST2 = "http://service-rest2:8080/session";
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
@@ -40,9 +40,18 @@ public class GatewayController {
 
     }
 
-    @GetMapping("/client1/getLivres")
-    public ResponseEntity<String> proxyGetLivres() {
-        return ResponseEntity.ok("📚 Hello depuis REST1 - Méthode getLivres()");
+        @GetMapping("/client1/getLivres")
+        public ResponseEntity<String> proxyGetLivres() {
+            String apiUrl = URL_REST1 + "/getLivres";
+            try {
+                System.out.println("🌐 Gateway → Requête envoyée à " + apiUrl);
+                String response = restTemplate.getForObject(apiUrl, String.class);
+                return ResponseEntity.ok(response);
+            } catch (Exception e) {
+                System.out.println("❌ Erreur REST1: " + e.getMessage());
+                return ResponseEntity.status(500).body("Erreur appel REST1");
+            }
+        
     }
     
     
