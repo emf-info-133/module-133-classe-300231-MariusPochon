@@ -1,4 +1,5 @@
-package com.example.rest2.dto;
+package com.example.marque_paf.user;
+
 
 public class UserDTO {
     private String username;

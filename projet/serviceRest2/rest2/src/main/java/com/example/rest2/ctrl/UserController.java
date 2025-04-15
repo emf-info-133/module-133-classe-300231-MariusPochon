@@ -20,13 +20,12 @@ public class UserController {
     public ResponseEntity<String> login(
             @RequestParam(required = false) String username,
             @RequestParam(required = false) String password,
-            @RequestBody(required = false)  UserDTO userDTO,
+            @RequestBody(required = false) UserDTO userDTO,
             HttpSession session) {
-        
-        
+
         String finalUsername;
         String finalPassword;
-        
+
         if (userDTO != null) {
             // Si données envoyées en JSON
             finalUsername = userDTO.getUsername();
@@ -54,5 +53,34 @@ public class UserController {
         }
 
         return ResponseEntity.status(401).body("Identifiants incorrects");
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<String> register(@RequestBody UserDTO userDTO) {
+        // 1. Vérification des champs obligatoires
+        if (userDTO.getUsername() == null || userDTO.getPassword() == null) {
+            return ResponseEntity.badRequest().body("Username et password requis");
+        }
+
+        // 2. Vérifier si le username existe déjà
+        if (userRepository.findByUsername(userDTO.getUsername()).isPresent()) {
+            return ResponseEntity.badRequest().body("Nom d'utilisateur déjà utilisé");
+        }
+
+        // 3. Créer un nouvel utilisateur
+        User user = new User();
+        user.setUsername(userDTO.getUsername());
+        user.setPasswordHash(userDTO.getPassword()); // A CHANGER pour du hash réel plus tard
+
+        String role = userDTO.getRole();
+        if (role == null || (!role.equalsIgnoreCase("admin") && !role.equalsIgnoreCase("user"))) {
+            return ResponseEntity.badRequest().body("Rôle invalide (user/admin uniquement)");
+        }
+
+        user.setRole(User.Role.valueOf(role.toLowerCase())); // Assure une correspondance propre
+
+        userRepository.save(user);
+
+        return ResponseEntity.ok("Utilisateur enregistré avec succès");
     }
 }
