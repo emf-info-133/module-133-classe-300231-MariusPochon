@@ -44,4 +44,34 @@ body {
     color: red;
     margin-top: 0.5rem;
   }
-  
+
+.container {
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.success {
+  color: green;
+  margin-top: 0.5rem;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.checkbox-container input[type="checkbox"] {
+  width: auto;
+  margin-right: 10px;
+}
+
+.checkbox-container label {
+  margin: 0;
+  cursor: pointer;
+}

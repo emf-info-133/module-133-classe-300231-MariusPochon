@@ -12,15 +12,15 @@ form.addEventListener('submit', async (e) => {
     const response = await fetch('http://localhost:8080/login', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json' // C’est ce qui indique le format
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({ username, password })
     });
 
-    const text = await response.text(); // <-- Ton API retourne juste un texte simple
+    const text = await response.text(); 
     if (response.ok) {
-      alert(text); // "Connecté avec succès"
-      window.location.href = './html/oui.html';// Tu peux rediriger vers le dashboard ou autre ici
+      alert(text); 
+      window.location.href = './html/oui.html';
     } else {
       errorMsg.textContent = text || 'Erreur de connexion';
     }
