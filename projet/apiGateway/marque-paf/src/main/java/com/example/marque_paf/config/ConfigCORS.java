@@ -11,7 +11,7 @@ public class ConfigCORS {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // autorise tous les chemins
-                        .allowedOrigins("http://localhost:8080", "http://127.0.0.1:5500") // ajoute ici les domaines que tu autorises
+                        .allowedOrigins("http://localhost:8080", "http://localhost:5501") // ajoute ici les domaines que tu autorises
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true)

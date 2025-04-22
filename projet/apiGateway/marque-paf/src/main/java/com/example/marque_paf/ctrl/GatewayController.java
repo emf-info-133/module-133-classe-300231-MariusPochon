@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Map;
 
-@CrossOrigin(origins = { "http://localhost:8080" }, allowCredentials = "true") // Pour le dev local
+@CrossOrigin(origins = { "http://localhost:5501" }, allowCredentials = "true") 
 
 @RestController
 public class GatewayController {
