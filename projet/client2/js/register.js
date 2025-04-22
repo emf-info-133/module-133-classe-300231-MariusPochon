@@ -28,7 +28,7 @@ form.addEventListener('submit', async (e) => {
     const text = await response.text(); 
     if (response.ok) {
       alert(text); 
-      window.location.href = 'oui.html';
+      window.location.href = '../index.html';
     } else {
       errorMsg.textContent = text || 'Erreur de connexion';
     }
