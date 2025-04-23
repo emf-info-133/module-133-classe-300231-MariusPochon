@@ -83,7 +83,7 @@
   function deleteBook(id) {
     if (!confirm("Voulez-vous vraiment supprimer ce livre ?")) return;
   
-    fetch(`http://localhost:8080/deleteLivre/${id}`, {
+    fetch(`http://localhost:8080/client1/deleteLivre/${id}`, {
       method: "DELETE"
     })
       .then(response => {

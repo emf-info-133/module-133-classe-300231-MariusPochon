@@ -24,4 +24,8 @@ public class Livres {
     @ManyToOne
     @JoinColumn(name = "author_id")
     private Auteurs auteur;
+
+    @Column(name = "added_by")
+    private String addedBy;
+
 }

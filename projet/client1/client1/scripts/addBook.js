@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const authorSelect = document.getElementById("authorSelect");
   
     // Chargement des auteurs dans le select
-    fetch("http://localhost:8080/getAuteurs")
+    fetch("http://localhost:8080/client1/getAuteurs")
       .then(response => response.json())
       .then(data => {
         data.forEach(author => {
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const publicationYear = document.getElementById("publicationYear").value;
       const authorId = authorSelect.value;
   
-      fetch("http://localhost:8080/addLivre", {
+      fetch("http://localhost:8080/client1/addLivre", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
