@@ -19,14 +19,14 @@ form.addEventListener('submit', async (e) => {
 
     const text = await response.text(); 
     if (response.ok) {
-      if(text === 'user'){
+      if(text === 'admin'){
         alert(text); 
         window.location.href = './html/AllBooks.html';
       } else {
-        errorMsg.textContent = "Accès refusé : vous n'êtes pas un utilisateur. Si vous avez un compte administateur, connectez-vous à la plateforme dédiés";
+        errorMsg.textContent = "Accès refusé : vous n'êtes pas administrateur";
       }
      
-    }else {
+    } else {
       errorMsg.textContent = text || 'Erreur de connexion';
     }
 

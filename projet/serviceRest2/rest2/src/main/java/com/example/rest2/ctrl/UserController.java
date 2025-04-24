@@ -49,7 +49,7 @@ public class UserController {
             session.setAttribute("userId", user.getId());
             session.setAttribute("username", user.getUsername());
             session.setAttribute("role", user.getRole().name());
-            return ResponseEntity.ok("Connecté avec succès");
+            return ResponseEntity.ok(user.getRole().name());
         }
 
         return ResponseEntity.status(401).body("Identifiants incorrects");

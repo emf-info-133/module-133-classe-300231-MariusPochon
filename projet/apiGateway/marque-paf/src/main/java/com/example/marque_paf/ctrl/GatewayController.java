@@ -31,15 +31,7 @@ public class GatewayController {
 
     }
 
-    private boolean isAdmin(HttpSession session) {
-
-        String role = (String) session.getAttribute("role");
-
-        return role != null && role.equals("admin");
-
-    }
-
-    // PARTIE REST2
+    // PARTIE GESTION USER/ADMIN
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UserDTO userDTO, HttpSession session) {
@@ -83,7 +75,7 @@ public class GatewayController {
         }
     }
 
-    // PARTIE REST1
+    // PARTIE BIBLIOHTEQUE
 
     @GetMapping("/client1/getLivres")
     public ResponseEntity<String> proxyGetLivres() {
@@ -116,14 +108,12 @@ public class GatewayController {
             @RequestParam String title,
             @RequestParam String genre,
             @RequestParam Integer publication_year,
-            @RequestParam Integer author_id,
-            @RequestParam String added_by) {
+            @RequestParam Integer author_id) {
         try {
             String url = URL_REST1 + "/addLivre?title=" + title +
                     "&genre=" + genre +
                     "&publication_year=" + publication_year +
-                    "&author_id=" + author_id +
-                    "&added_by=" + added_by;
+                    "&author_id=" + author_id;
 
             String response = restTemplate.postForObject(url, null, String.class);
             return ResponseEntity.ok(response);

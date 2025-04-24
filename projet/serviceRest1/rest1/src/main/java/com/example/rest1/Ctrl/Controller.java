@@ -51,8 +51,7 @@ public class Controller {
             @RequestParam String title,
             @RequestParam String genre,
             @RequestParam Integer publication_year,
-            @RequestParam Integer author_id,
-            @RequestParam String added_by) {
+            @RequestParam Integer author_id) {
 
         // Chercher l'auteur par ID
         Auteurs auteur = auteursRepository.findById(author_id).orElse(null);
@@ -67,7 +66,7 @@ public class Controller {
         livre.setGenre(genre);
         livre.setPublicationYear(publication_year);
         livre.setAuteur(auteur);
-        livre.setAddedBy(added_by);
+        
 
 
         // Sauvegarder le livre dans la base de données
