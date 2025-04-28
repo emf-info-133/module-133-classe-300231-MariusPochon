@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const publicationYear = document.getElementById("publicationYear").value;
       const authorId = authorSelect.value;
   
-      fetch("http://localhost:8080/client1/addLivre", {
+      fetch("https://133.khalils.emf-informatique.ch/client1/addLivre", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",

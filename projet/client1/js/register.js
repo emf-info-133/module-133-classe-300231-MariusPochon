@@ -17,7 +17,7 @@ form.addEventListener('submit', async (e) => {
  
   try {
     console.log(JSON.stringify({ username, password, role }));
-    const response = await fetch('http://localhost:8080/register', {
+    const response = await fetch('https://133.khalils.emf-informatique.ch/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

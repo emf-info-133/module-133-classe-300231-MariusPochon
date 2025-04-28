@@ -10,12 +10,12 @@ public class ConfigCORS {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**") // autorise tous les chemins
-                        .allowedOrigins("http://localhost:8080", "http://localhost:5501") // ajoute ici les domaines que tu autorises
+                registry.addMapping("/**") 
+                        .allowedOrigins("https://khalils.emf-informatique.ch") 
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true)
-                        .maxAge(3600); // cache la réponse CORS pendant 1 heure
+                        .maxAge(3600); 
             }
         };
     }

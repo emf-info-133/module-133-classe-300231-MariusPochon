@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.marque_paf.user.UserDTO;
 
-@CrossOrigin(origins = { "http://localhost:5501" }, allowCredentials = "true") 
+@CrossOrigin(origins = { "https://khalils.emf-informatique.ch" }, allowCredentials = "true") 
 
 @RestController
 public class GatewayController {

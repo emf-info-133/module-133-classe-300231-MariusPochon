@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
   
     if (bookId) {
       // Requête GET pour récupérer les détails du livre
-      fetch(`http://localhost:8080/client1/getLivre?id=${bookId}`)
+      fetch(`https://133.khalils.emf-informatique.ch/client1/getLivre?id=${bookId}`)
         .then(response => response.json())
         .then(data => {
           // Si le livre est trouvé, afficher ses détails

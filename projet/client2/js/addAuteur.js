@@ -5,7 +5,7 @@ document.getElementById("auteurForm").addEventListener("submit", function (e) {
     const birthYear = document.getElementById("birthYear").value;
     const nationality = document.getElementById("nationality").value;
   
-    fetch("http://localhost:8080/client1/addAuteur", {
+    fetch("https://133.khalils.emf-informatique.ch/client1/addAuteur", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",

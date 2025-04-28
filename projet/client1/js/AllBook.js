@@ -49,7 +49,7 @@
 
 
   document.addEventListener("DOMContentLoaded", () => {
-    fetch("http://localhost:8080/client1/getLivres")
+    fetch("https://133.khalils.emf-informatique.ch/client1/getLivres")
       .then(response => response.json())
       .then(data => {
         const list = document.getElementById("bookList");

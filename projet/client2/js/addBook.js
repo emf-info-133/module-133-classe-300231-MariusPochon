@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const authorSelect = document.getElementById("authorSelect");
   
     // Chargement des auteurs dans le select
-    fetch("http://localhost:8080/client1/getAuteurs")
+    fetch("https://133.khalils.emf-informatique.ch/client1/getAuteurs")
       .then(response => response.json())
       .then(data => {
         data.forEach(author => {
